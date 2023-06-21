@@ -256,7 +256,25 @@ public List<Stations> getApprovedStations() {
         return stations;
     }
 
+//    public List<Double[]> getAllStationsCoordinates() {
+//        List<Stations> stations = stationsRepository.findAll();
+//
+//        return stations.stream()
+//                .map(station -> new Double[]{station.getLatitude(), station.getLongitude()})
+//                .collect(Collectors.toList());
+//    }
 
+    public List<Map<String, Object>> getAllStationsCoordinates() {
+        List<Stations> stations = stationsRepository.findAll();
 
-
+        return stations.stream()
+                .map(station -> {
+                    Map<String, Object> stationData = new HashMap<>();
+                    stationData.put("latitude", station.getLatitude());
+                    stationData.put("longitude", station.getLongitude());
+                    stationData.put("name", station.getName());
+                    return stationData;
+                })
+                .collect(Collectors.toList());
+    }
 }

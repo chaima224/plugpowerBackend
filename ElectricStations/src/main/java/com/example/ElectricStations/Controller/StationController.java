@@ -147,4 +147,17 @@ public Stations createStationAndBorne(@RequestBody StationRequest request) {
             return new ResponseEntity<>(stations, HttpStatus.OK);
         }
     }
+//    @GetMapping("/coordinates")
+//    public ResponseEntity<?> getAllStationsCoordinates() {
+//        try {
+//            return new ResponseEntity<>(stationService.getAllStationsCoordinates(), HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>("Failed to retrieve station coordinates.", HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+@GetMapping("/coordinates")
+public ResponseEntity<List<Map<String, Object>>> getAllStationsCoordinates() {
+    List<Map<String, Object>> stationCoordinates = stationService.getAllStationsCoordinates();
+    return ResponseEntity.ok(stationCoordinates);
+}
 }

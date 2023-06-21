@@ -60,6 +60,7 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.POST, "/electricStations/add").permitAll()
                         .antMatchers(HttpMethod.POST, "/disponibilites/dispo").permitAll()
                         .antMatchers(HttpMethod.GET, "/disponibilites/{stationId}/{borneId}").permitAll()
+                        .antMatchers(HttpMethod.POST, "/evaluations/stations/{stationId}/comments").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf().disable()
