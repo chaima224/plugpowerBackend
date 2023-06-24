@@ -32,6 +32,7 @@ public class Evaluation {
     @NonNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime timestamp;
+    private String status = "pending";
 
 // Constructors, getters, and setters
 }

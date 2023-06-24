@@ -194,6 +194,8 @@ public class StationService {
 
 
 
+
+
     /** get stations approuved**/
 public List<Stations> getApprovedStations() {
     List<Stations> stations = stationsRepository.findAll();
@@ -264,17 +266,31 @@ public List<Stations> getApprovedStations() {
 //                .collect(Collectors.toList());
 //    }
 
-    public List<Map<String, Object>> getAllStationsCoordinates() {
-        List<Stations> stations = stationsRepository.findAll();
+//    public List<Map<String, Object>> getAllStationsCoordinates() {
+//        List<Stations> stations = stationsRepository.findAll();
+//
+//        return stations.stream()
+//                .map(station -> {
+//                    Map<String, Object> stationData = new HashMap<>();
+//                    stationData.put("latitude", station.getLatitude());
+//                    stationData.put("longitude", station.getLongitude());
+//                    stationData.put("name", station.getName());
+//                    return stationData;
+//                })
+//                .collect(Collectors.toList());
+//    }
+public List<Map<String, Object>> getAllStationsCoordinates() {
+    List<Stations> stations = stationsRepository.findAll();
 
-        return stations.stream()
-                .map(station -> {
-                    Map<String, Object> stationData = new HashMap<>();
-                    stationData.put("latitude", station.getLatitude());
-                    stationData.put("longitude", station.getLongitude());
-                    stationData.put("name", station.getName());
-                    return stationData;
-                })
-                .collect(Collectors.toList());
-    }
+    return stations.stream()
+            .filter(station -> station.getStatus().equals("approuved")) // Filtrez les stations avec le statut "approved"
+            .map(station -> {
+                Map<String, Object> stationData = new HashMap<>();
+                stationData.put("latitude", station.getLatitude());
+                stationData.put("longitude", station.getLongitude());
+                stationData.put("name", station.getName());
+                return stationData;
+            })
+            .collect(Collectors.toList());
+}
 }

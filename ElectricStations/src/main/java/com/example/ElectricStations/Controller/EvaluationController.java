@@ -53,10 +53,31 @@ public class EvaluationController {
 
     // Vous pouvez ajouter d'autres méthodes de contrôleur selon vos besoins, par exemple :
 
-    @GetMapping("/station/{stationId}")
-    public ResponseEntity<List<Evaluation>> getEvaluationsByStation(@PathVariable String stationId) {
-        List<Evaluation> evaluations = evaluationService.getEvaluationsByStation(stationId);
-        return new ResponseEntity<>(evaluations, HttpStatus.OK);
+//    @GetMapping("/station/{stationId}")
+//    public ResponseEntity<List<Evaluation>> getEvaluationsByStation(@PathVariable String stationId) {
+//        List<Evaluation> evaluations = evaluationService.getEvaluationsByStation(stationId);
+//        return new ResponseEntity<>(evaluations, HttpStatus.OK);
+//    }
+@GetMapping("/station/{stationId}")
+public ResponseEntity<List<Evaluation>> getApprovedEvaluationsByStation(@PathVariable("stationId") String stationId) {
+    List<Evaluation> approvedEvaluations = evaluationService.getApprovedEvaluationsByStation(stationId);
+    return ResponseEntity.ok(approvedEvaluations);
+}
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Evaluation> findById(@PathVariable("id") String id) {
+        return ResponseEntity.ok(evaluationService.findById(id));
     }
+    @PutMapping("/{id}/status")
+    public ResponseEntity<?> updateEvaluationStatus(@PathVariable("id") String id) {
+        return evaluationService.updateEvaluation(id);
+    }
+    @DeleteMapping("/{evaluation-id}")
+    public ResponseEntity<Void> delete(@PathVariable("evaluation-id") String id) {
+        evaluationService.delete(id);
+        return ResponseEntity.accepted().build();
+    }
+
 
 }

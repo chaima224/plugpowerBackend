@@ -19,4 +19,9 @@ public class StationRequest {
     public void setBorne(Borne borne) {
         this.borne = borne;
     }
+
+
+
+
+
 }

@@ -119,7 +119,7 @@ public List<Stations> getStations() {
     }
 
 
-// ajouter station et borne à a fois
+
 @PostMapping("/add")
 public Stations createStationAndBorne(@RequestBody StationRequest request) {
     Stations station = request.getStation();
@@ -129,7 +129,10 @@ public Stations createStationAndBorne(@RequestBody StationRequest request) {
 }
 
 
-//get stationsApprouved
+
+
+
+    //get stationsApprouved
     @GetMapping("/stationsApprouved")
     public List<Stations> getApprovedStations() {
         return stationService.getApprovedStations();
@@ -155,9 +158,13 @@ public Stations createStationAndBorne(@RequestBody StationRequest request) {
 //            return new ResponseEntity<>("Failed to retrieve station coordinates.", HttpStatus.INTERNAL_SERVER_ERROR);
 //        }
 //    }
+//@GetMapping("/coordinates")
+//public ResponseEntity<List<Map<String, Object>>> getAllStationsCoordinates() {
+//    List<Map<String, Object>> stationCoordinates = stationService.getAllStationsCoordinates();
+//    return ResponseEntity.ok(stationCoordinates);
+//}
 @GetMapping("/coordinates")
-public ResponseEntity<List<Map<String, Object>>> getAllStationsCoordinates() {
-    List<Map<String, Object>> stationCoordinates = stationService.getAllStationsCoordinates();
-    return ResponseEntity.ok(stationCoordinates);
+public List<Map<String, Object>> getApprovedStationsCoordinates() {
+    return stationService.getAllStationsCoordinates();
 }
 }
