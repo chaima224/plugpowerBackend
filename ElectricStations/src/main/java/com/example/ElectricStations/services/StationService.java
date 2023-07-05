@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class StationService {
@@ -279,18 +280,57 @@ public List<Stations> getApprovedStations() {
 //                })
 //                .collect(Collectors.toList());
 //    }
-public List<Map<String, Object>> getAllStationsCoordinates() {
-    List<Stations> stations = stationsRepository.findAll();
+//public List<Map<String, Object>> getAllStationsCoordinates() {
+//    List<Stations> stations = stationsRepository.findAll();
+//
+//    return stations.stream()
+//            .filter(station -> station.getStatus().equals("approuved")) // Filtrez les stations avec le statut "approved"
+//            .map(station -> {
+//                Map<String, Object> stationData = new HashMap<>();
+//                stationData.put("latitude", station.getLatitude());
+//                stationData.put("longitude", station.getLongitude());
+//                stationData.put("name", station.getName());
+//                return stationData;
+//            })
+//            .collect(Collectors.toList());
+//}
+//    public List<Stations> getStationsByMode(String mode) {
+//        List<Stations> stations = stationsRepository.findAll();
+//
+//        return stations.stream()
+//                .filter(station -> station.getStatus().equals("approuved")) // Filtrer les stations avec le statut "approuved"
+//                .filter(station -> station.getBornes().stream().anyMatch(borne -> borne.getMode().equals(mode))) // Filtrer les stations ayant au moins une borne avec le mode spécifié
+//                .collect(Collectors.toList());
+//    }
 
-    return stations.stream()
-            .filter(station -> station.getStatus().equals("approuved")) // Filtrez les stations avec le statut "approved"
-            .map(station -> {
-                Map<String, Object> stationData = new HashMap<>();
-                stationData.put("latitude", station.getLatitude());
-                stationData.put("longitude", station.getLongitude());
-                stationData.put("name", station.getName());
-                return stationData;
-            })
-            .collect(Collectors.toList());
-}
+    public List<Map<String, Object>> getAllStationCoordinates() {
+        List<Stations> stations = stationsRepository.findAll();
+
+        return stations.stream()
+                .filter(station -> station.getStatus().equals("approuved"))
+                .map(station -> {
+                    Map<String, Object> stationData = new HashMap<>();
+                    stationData.put("latitude", station.getLatitude());
+                    stationData.put("longitude", station.getLongitude());
+                    stationData.put("name", station.getName());
+
+                    List<Map<String, Object>> bornesData = station.getBornes().stream()
+                            .map(borne -> {
+                                Map<String, Object> borneData = new HashMap<>();
+                                borneData.put("mode", borne.getMode());
+                                return borneData;
+                            })
+                            .collect(Collectors.toList());
+
+                    if (!bornesData.isEmpty()) {
+                        stationData.put("bornes", bornesData);
+                    } else {
+                        stationData.put("bornes", new ArrayList<>());
+                    }
+
+                    return stationData;
+                })
+                .collect(Collectors.toList());
+    }
+
 }

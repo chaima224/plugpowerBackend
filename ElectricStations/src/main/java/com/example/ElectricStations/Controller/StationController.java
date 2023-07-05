@@ -163,8 +163,16 @@ public Stations createStationAndBorne(@RequestBody StationRequest request) {
 //    List<Map<String, Object>> stationCoordinates = stationService.getAllStationsCoordinates();
 //    return ResponseEntity.ok(stationCoordinates);
 //}
-@GetMapping("/coordinates")
-public List<Map<String, Object>> getApprovedStationsCoordinates() {
-    return stationService.getAllStationsCoordinates();
+//@GetMapping("/coordinates")
+//public List<Map<String, Object>> getApprovedStationsCoordinates() {
+//    return stationService.getAllStationsCoordinates();
+//}
+//    @GetMapping("/mode/{mode}")
+//    public List<Stations> getStationsByMode(@PathVariable String mode) {
+//        return stationService.getStationsByMode(mode);
+//    }
+@GetMapping("/coordinate")
+public List<Map<String, Object>> getAllStationCoordinates() {
+    return stationService.getAllStationCoordinates();
 }
 }
