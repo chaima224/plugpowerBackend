@@ -310,6 +310,7 @@ public List<Stations> getApprovedStations() {
                 .filter(station -> station.getStatus().equals("approuved"))
                 .map(station -> {
                     Map<String, Object> stationData = new HashMap<>();
+                    stationData.put("id", station.getId());
                     stationData.put("latitude", station.getLatitude());
                     stationData.put("longitude", station.getLongitude());
                     stationData.put("name", station.getName());
