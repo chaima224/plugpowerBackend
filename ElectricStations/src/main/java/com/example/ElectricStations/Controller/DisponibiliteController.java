@@ -1,6 +1,5 @@
 package com.example.ElectricStations.Controller;
 
-import com.example.ElectricStations.entities.Borne;
 import com.example.ElectricStations.entities.Disponibilite;
 import com.example.ElectricStations.repositories.DisponibiliteRepository;
 import com.example.ElectricStations.services.DisponibiliteService;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/disponibilites")
@@ -60,11 +58,11 @@ public class DisponibiliteController {
         return disponibiliteService.findById(disponibiliteId);
     }
     @GetMapping("/{stationId}/{borneId}")
-    public ResponseEntity<Disponibilite> getDisponibilite(
+    public ResponseEntity<List<Disponibilite>> getDisponibilite(
             @PathVariable String stationId,
             @PathVariable String borneId
     ) {
-        Disponibilite disponibilite = disponibiliteService.getDisponibiliteByStationAndBorne(stationId, borneId);
+        List<Disponibilite> disponibilite = disponibiliteService.getDisponibiliteByStationAndBorne(stationId, borneId);
         if (disponibilite != null) {
             return ResponseEntity.ok(disponibilite);
         } else {

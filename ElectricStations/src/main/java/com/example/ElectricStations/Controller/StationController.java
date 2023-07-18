@@ -175,4 +175,9 @@ public Stations createStationAndBorne(@RequestBody StationRequest request) {
 public List<Map<String, Object>> getAllStationCoordinates() {
     return stationService.getAllStationCoordinates();
 }
+    @GetMapping("/pending")
+    public ResponseEntity<List<Stations>> getStationsWithPendingStatus() {
+        List<Stations> pendingStations = stationService.getStationsWithPendingStatus();
+        return ResponseEntity.ok(pendingStations);
+    }
 }

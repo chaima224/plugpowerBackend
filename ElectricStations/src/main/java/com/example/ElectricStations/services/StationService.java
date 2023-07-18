@@ -334,4 +334,7 @@ public List<Stations> getApprovedStations() {
                 .collect(Collectors.toList());
     }
 
+    public List<Stations> getStationsWithPendingStatus() {
+        return stationsRepository.findByStatus("pending");
+    }
 }

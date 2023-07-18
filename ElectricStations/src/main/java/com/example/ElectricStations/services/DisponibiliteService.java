@@ -3,7 +3,6 @@ package com.example.ElectricStations.services;
 import com.example.ElectricStations.entities.Borne;
 import com.example.ElectricStations.entities.Disponibilite;
 import com.example.ElectricStations.entities.Stations;
-import com.example.ElectricStations.enums.Dispo;
 import com.example.ElectricStations.repositories.BorneRepository;
 import com.example.ElectricStations.repositories.DisponibiliteRepository;
 import com.example.ElectricStations.repositories.StationsRepository;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DisponibiliteService {
@@ -63,7 +61,7 @@ public class DisponibiliteService {
         return disponibiliteRepository.findById(id)
                 .orElse(null);
     }
-    public Disponibilite getDisponibiliteByStationAndBorne(String stationId, String borneId) {
+    public List<Disponibilite> getDisponibiliteByStationAndBorne(String stationId, String borneId) {
         Stations station = new Stations();
         station.setId(stationId);
 

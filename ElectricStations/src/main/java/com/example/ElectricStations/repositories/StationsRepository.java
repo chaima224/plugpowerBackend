@@ -16,4 +16,6 @@ public interface StationsRepository extends MongoRepository<Stations,String> {
 
 
     Stations findByName(String stationName);
+
+    List<Stations> findByStatus(String pending);
 }
