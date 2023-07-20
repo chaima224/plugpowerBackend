@@ -13,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -337,4 +339,25 @@ public List<Stations> getApprovedStations() {
     public List<Stations> getStationsWithPendingStatus() {
         return stationsRepository.findByStatus("pending");
     }
+
+    public List<Stations> getLatestApprovedStations() {
+        String status = "approuved";
+
+        // Obtenir la date actuelle
+        LocalDate currentDate = LocalDate.now();
+
+        List<Stations> approvedStations = stationsRepository.findApprovedStationsByStatus(status);
+
+        List<Stations> filteredStations = approvedStations.stream()
+                .filter(station -> station.getCreatedAt() != null && station.getLastModified() != null) // Vérifier que les valeurs ne sont pas nulles
+                .filter(station -> station.getLastModified().toLocalDate().isEqual(currentDate)) // Vérifier que lastModified est égal à la date actuelle
+                .collect(Collectors.toList());
+
+        return filteredStations;
+    }
+
+
+
+
+
 }

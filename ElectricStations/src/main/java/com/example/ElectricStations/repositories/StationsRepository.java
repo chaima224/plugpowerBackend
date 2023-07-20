@@ -4,6 +4,7 @@ import com.example.ElectricStations.entities.Stations;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,4 +19,10 @@ public interface StationsRepository extends MongoRepository<Stations,String> {
     Stations findByName(String stationName);
 
     List<Stations> findByStatus(String pending);
+
+
+    List<Stations> findTopApprovedStationsByStatusOrderByOuvertureDesc(String approuved);
+
+
+    List<Stations> findApprovedStationsByStatus(String status);
 }

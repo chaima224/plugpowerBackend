@@ -4,7 +4,10 @@ import com.example.ElectricStations.enums.Connecteur;
 import com.example.ElectricStations.enums.Emplacement;
 import com.example.ElectricStations.enums.Trajet;
 import lombok.*;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -51,7 +54,13 @@ public class Stations {
     private String trajet;
 
     private String status = "pending";
+    @CreatedDate
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime createdAt;
 
+    @LastModifiedDate
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime lastModified;
     public Stations(List<Borne> bornes) {
 
         bornes = new ArrayList<>();
@@ -76,7 +85,6 @@ public class Stations {
     }
 
 
-    //disponibiité
 
 }
 

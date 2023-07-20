@@ -180,4 +180,9 @@ public List<Map<String, Object>> getAllStationCoordinates() {
         List<Stations> pendingStations = stationService.getStationsWithPendingStatus();
         return ResponseEntity.ok(pendingStations);
     }
+    @GetMapping("/latest-approved-stations")
+    public List<Stations> getApprovedStationsToday() {
+        return stationService.getLatestApprovedStations();
+    }
 }
+
